@@ -1,0 +1,40 @@
+## Problem #129: Sum Root to Leaf Numbers
+
+## Difficulty: Medium
+
+### Problem Description:
+Given the root of a binary tree containing digits from 0 to 9 only, compute the total sum of all root-to-leaf numbers, where each root-to-leaf path represents a number.
+
+### Example Test Cases:
+# Example 1:
+#   Input: root = [1,2,3]
+#   Output: 25
+#   Explanation: The root-to-leaf paths represent the numbers 12 and 13, resulting in a sum of 25.
+# Example 2:
+#   Input: root = [4,9,0,5,1]
+#   Output: 1026
+#   Explanation: The sum is calculated as 495 + 491 + 40 = 1026.
+
+### Approach:
+# Utilized a depth-first search (DFS) traversal to compute the sum of root-to-leaf numbers. At each node, accumulated the current number by multiplying it by 10 and adding the value of the current node. When reaching a leaf node, added the calculated number to the running total. This approach ensures an efficient traversal of the tree and accurate calculation of the sum.
+
+### Code Implementation (Python):
+class Solution:
+    def sumNumbers(self, root: Optional[TreeNode]) -> int:
+        def dfs(node, current_sum):
+            if not node:
+                return 0
+            current_sum = current_sum * 10 + node.val
+            if not node.left and not node.right:
+                return current_sum
+            left_sum = dfs(node.left, current_sum)
+            right_sum = dfs(node.right, current_sum)
+            return left_sum + right_sum
+        
+        return dfs(root, 0)
+
+### Complexity Analysis:
+# - Time Complexity: O(n), where n is the number of nodes in the binary tree. Each node is visited exactly once during the DFS traversal.
+# - Space Complexity: O(h), where h is the height of the binary tree. This space is required for the recursive function calls on the call stack.
+
+# This problem exemplifies how LeetCode challenges assess algorithmic proficiency and the ability to traverse and manipulate data structures effectively.
