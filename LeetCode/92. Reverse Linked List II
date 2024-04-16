@@ -1,0 +1,41 @@
+## Problem #92: Reverse Linked List II
+
+## Difficulty: Medium
+
+### Problem Description:
+Given the head of a singly linked list and two integers `left` and `right` where `left` <= `right`, reverse the nodes of the list from position `left` to position `right`, and return the reversed list.
+
+### Example Test Cases:
+# Example 1:
+#   Input: head = [1,2,3,4,5], left = 2, right = 4
+#   Output: [1,4,3,2,5]
+# Example 2:
+#   Input: head = [5], left = 1, right = 1
+#   Output: [5]
+
+### Approach:
+# Traversed the list until reaching the node at position `left - 1`, which served as the predecessor of the sublist to be reversed. Then reversed the sublist from position `left` to position `right` using standard techniques for reversing a linked list. Finally, reconnected the reversed sublist with the original list by adjusting the pointers of the predecessor and successor nodes accordingly.
+
+### Code Implementation (Python):
+```python
+class Solution:
+    def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
+        dummy = ListNode(0)
+        dummy.next = head
+        pre = dummy
+        for _ in range(left - 1):
+            pre = pre.next
+        cur = pre.next
+        for _ in range(right - left):
+            nxt = cur.next
+            cur.next = nxt.next
+            nxt.next = pre.next
+            pre.next = nxt
+        return dummy.next
+```
+
+### Complexity Analysis:
+# - Time Complexity: O(n), where n is the number of nodes in the linked list. The algorithm traverses the list twice, once to reach the node at position `left - 1` and once to reverse the sublist from position `left` to `right`.
+# - Space Complexity: O(1), as only a constant amount of extra space is used.
+
+# This problem demonstrates the importance of understanding linked list manipulation techniques in solving practical coding challenges.
