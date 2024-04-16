@@ -1,31 +1,47 @@
-206. Reverse Linked List
-Easy
-Topics
-Companies
-Given the head of a singly linked list, reverse the list, and return the reversed list.
-
- 
-
-Example 1:
+## Problem #206: Reverse Linked List
+https://leetcode.com/problems/reverse-linked-list/submissions/1234196727
 
 
-Input: head = [1,2,3,4,5]
-Output: [5,4,3,2,1]
-Example 2:
+## Difficulty: Easy
 
+### Problem Description:
+Given the head of a singly linked list, reverse the list and return its head.
 
-Input: head = [1,2]
-Output: [2,1]
-Example 3:
+### Example Test Cases:
+# Example 1:
+#   Input: 1->2->3->4->5->NULL
+#   Output: 5->4->3->2->1->NULL
+# Example 2:
+#   Input: NULL
+#   Output: NULL
 
-Input: head = []
-Output: []
- 
+### Approach:
+# Implemented two approaches for reversing a linked list: iterative and recursive.
+# - Iterative Approach: Iterates through the list while updating pointers to reverse the direction of the list.
+# - Recursive Approach: Utilizes recursion to reverse the list by recursively traversing and updating pointers.
 
-Constraints:
+### Code Implementation (Python):
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 
-The number of nodes in the list is the range [0, 5000].
--5000 <= Node.val <= 5000
- 
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        prev_node = None
+        current_node = head
+        while current_node:
+            next_node = current_node.next
+            current_node.next = prev_node
+            prev_node = current_node
+            current_node = next_node
+        return prev_node
+```
 
-Follow up: A linked list can be reversed either iteratively or recursively. Could you implement both?
+### Complexity Analysis:
+# - Time Complexity: O(n), where n is the number of nodes in the linked list. Each node is visited once during the iteration.
+# - Space Complexity: O(1), as only a constant amount of extra space is used.
+
+# This problem highlights the importance of understanding linked list manipulation and offers insights into efficient algorithms for reversing linked lists.
