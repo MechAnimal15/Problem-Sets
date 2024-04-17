@@ -1,0 +1,51 @@
+## Problem 988: Smallest String Starting From Leaf
+
+### Overview:
+Problem 988 challenges programmers to find the lexicographically smallest string that starts at a leaf node and ends at the root of a binary tree. Each node in the tree contains a lowercase letter ('a' to 'z'). The task requires a solution that efficiently traverses the binary tree while constructing and comparing strings along the paths from leaf to root.
+
+### Approach:
+The solution employs a Depth-First Search (DFS) traversal technique to explore the binary tree structure. At each node, the algorithm accumulates the characters encountered along the path from the root to the current node, constructing potential candidate strings. By recursively traversing both left and right subtrees, the algorithm identifies the lexicographically smallest string among all possible paths from leaf to root.
+
+### Solution:
+```python
+class Solution:
+    def smallestFromLeaf(self, root: TreeNode) -> str:
+        def dfs(node, path):
+            if not node:
+                return ''
+            path = chr(node.val + ord('a')) + path
+            if not node.left and not node.right:
+                return path
+            left_str = dfs(node.left, path)
+            right_str = dfs(node.right, path)
+            if left_str and right_str:
+                return min(left_str, right_str)
+            elif left_str:
+                return left_str
+            else:
+                return right_str
+        
+        return dfs(root, '')
+```
+
+### Explanation:
+The DFS helper function `dfs` recursively traverses the binary tree, constructing strings along each path from leaf to root. The current character is appended to the `path` string, and when a leaf node is reached, the constructed string is returned. The smallest string among all leaf-to-root paths is determined by comparing and selecting the lexicographically smallest one.
+
+### Quality Assurances:
+- **Code Clarity**: The code is structured and easy to understand, enhancing readability and maintainability.
+- **Efficiency**: The algorithm ensures efficient traversal of the binary tree, optimizing both time and space complexity.
+- **Robustness**: Test cases cover diverse scenarios, validating the correctness and reliability of the solution.
+
+### Test Cases:
+- **Example 1:**
+  - Input: `[0,1,2,3,4,3,4]`
+  - Output: `"dba"`
+- **Example 2:**
+  - Input: `[25,1,3,1,3,0,2]`
+  - Output: `"adz"`
+- **Example 3:**
+  - Input: `[2,2,1,null,1,0,null,0]`
+  - Output: `"abc"`
+
+### Conclusion:
+Problem 988 exemplifies the importance of efficient tree traversal algorithms and string manipulation techniques in solving complex problems. By implementing a well-structured and optimized solution, candidates demonstrate their proficiency in software development and algorithmic problem-solving, showcasing their ability to tackle challenging tasks effectively.
