@@ -1,35 +1,45 @@
 ## Problem 988: Smallest String Starting From Leaf
 
 ### Overview:
-Problem 988 challenges programmers to find the lexicographically smallest string that starts at a leaf node and ends at the root of a binary tree. Each node in the tree contains a lowercase letter ('a' to 'z'). The task requires a solution that efficiently traverses the binary tree while constructing and comparing strings along the paths from leaf to root.
+Problem 988, "Smallest String Starting From Leaf," tasks programmers with finding the lexicographically smallest string that starts at a leaf node and ends at the root of a binary tree. Each node in the tree contains a value representing a lowercase letter ('a' to 'z'). The solution requires traversing the binary tree efficiently while constructing and comparing strings along the paths from leaf to root.
 
 ### Approach:
 The solution employs a Depth-First Search (DFS) traversal technique to explore the binary tree structure. At each node, the algorithm accumulates the characters encountered along the path from the root to the current node, constructing potential candidate strings. By recursively traversing both left and right subtrees, the algorithm identifies the lexicographically smallest string among all possible paths from leaf to root.
 
-### Solution:
-```python
 class Solution:
-    def smallestFromLeaf(self, root: TreeNode) -> str:
-        def dfs(node, path):
+    def smallestFromLeaf(self, root: Optional[TreeNode]) -> str:
+        # Helper function to perform Depth-First Search (DFS)
+        def dfs(node, path, smallest):
             if not node:
-                return ''
-            path = chr(node.val + ord('a')) + path
+                return
+            
+            # Append current node's character to the path
+            path.append(chr(node.val + ord('a')))
+            
+            # If it's a leaf node, reverse the path and compare
             if not node.left and not node.right:
-                return path
-            left_str = dfs(node.left, path)
-            right_str = dfs(node.right, path)
-            if left_str and right_str:
-                return min(left_str, right_str)
-            elif left_str:
-                return left_str
-            else:
-                return right_str
+                current_string = ''.join(path[::-1])  # Reverse path to get string
+                smallest[0] = min(smallest[0], current_string)
+            
+            # Recursively traverse left and right subtrees
+            dfs(node.left, path, smallest)
+            dfs(node.right, path, smallest)
+            
+            # Backtrack: remove the current node's character from the path
+            path.pop()
         
-        return dfs(root, '')
+        # Initialize smallest string as a large value
+        smallest = [chr(ord('z') + 1)]  # Store smallest string found
+        
+        # Start DFS from the root with an empty path
+        dfs(root, [], smallest)
+        
+        return smallest[0]
+
 ```
 
 ### Explanation:
-The DFS helper function `dfs` recursively traverses the binary tree, constructing strings along each path from leaf to root. The current character is appended to the `path` string, and when a leaf node is reached, the constructed string is returned. The smallest string among all leaf-to-root paths is determined by comparing and selecting the lexicographically smallest one.
+This Python3 solution utilizes a Depth-First Search (DFS) traversal approach to explore the binary tree efficiently. At each node, the algorithm appends the current node's character to the path and recursively traverses the left and right subtrees. Upon reaching a leaf node, the algorithm constructs the corresponding string by reversing the path and compares it with the current smallest string. The lexicographically smallest string among all leaf-to-root paths is determined and returned as the result.
 
 ### Quality Assurances:
 - **Code Clarity**: The code is structured and easy to understand, enhancing readability and maintainability.
@@ -48,4 +58,4 @@ The DFS helper function `dfs` recursively traverses the binary tree, constructin
   - Output: `"abc"`
 
 ### Conclusion:
-Problem 988 exemplifies the importance of efficient tree traversal algorithms and string manipulation techniques in solving complex problems. By implementing a well-structured and optimized solution, candidates demonstrate their proficiency in software development and algorithmic problem-solving, showcasing their ability to tackle challenging tasks effectively.
+This solution demonstrates proficiency in tree traversal algorithms, string manipulation techniques, and problem-solving skills. Through a well-structured and optimized approach, candidates can effectively address the problem requirements and showcase their expertise in software development and algorithm design.
