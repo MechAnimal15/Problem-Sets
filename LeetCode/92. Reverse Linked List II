@@ -1,41 +1,53 @@
-## Problem #92: Reverse Linked List II
+## Problem 92: Reverse Linked List II
+https://leetcode.com/problems/reverse-linked-list-ii/submissions/1235916037
 
-## Difficulty: Medium
-
-### Problem Description:
-Given the head of a singly linked list and two integers `left` and `right` where `left` <= `right`, reverse the nodes of the list from position `left` to position `right`, and return the reversed list.
-
-### Example Test Cases:
-# Example 1:
-#   Input: head = [1,2,3,4,5], left = 2, right = 4
-#   Output: [1,4,3,2,5]
-# Example 2:
-#   Input: head = [5], left = 1, right = 1
-#   Output: [5]
+### Overview:
+Problem 92 tasks programmers with reversing a portion of a linked list between positions m and n. This involves manipulating pointers within the linked list to reverse the specified segment while maintaining the rest of the list intact.
 
 ### Approach:
-# Traversed the list until reaching the node at position `left - 1`, which served as the predecessor of the sublist to be reversed. Then reversed the sublist from position `left` to position `right` using standard techniques for reversing a linked list. Finally, reconnected the reversed sublist with the original list by adjusting the pointers of the predecessor and successor nodes accordingly.
+To tackle this problem, the solution employs a three-step process:
+1. Traverse the linked list to reach the node at position m-1.
+2. Reverse the segment between positions m and n.
+3. Reconnect the reversed segment back to the original list.
 
-### Code Implementation (Python):
+### Python3 Solution with Annotations:
 ```python
 class Solution:
     def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
+        # Initialize a dummy node to handle cases where left is at the beginning of the list
         dummy = ListNode(0)
         dummy.next = head
-        pre = dummy
+        pre = dummy  # Initialize a pointer to the node before the left position
+        # Move the pre pointer to the node before the left position
         for _ in range(left - 1):
             pre = pre.next
-        cur = pre.next
+        cur = pre.next  # Initialize a pointer to the current node at the left position
+        # Reverse the segment between left and right positions
         for _ in range(right - left):
-            nxt = cur.next
-            cur.next = nxt.next
-            nxt.next = pre.next
-            pre.next = nxt
-        return dummy.next
+            nxt = cur.next  # Save the next node to be processed
+            cur.next = nxt.next  # Disconnect the current node from the next node
+            nxt.next = pre.next  # Connect the next node to the node after the pre pointer
+            pre.next = nxt  # Connect the pre pointer to the next node
+        return dummy.next  # Return the head of the modified linked list
+
 ```
 
-### Complexity Analysis:
-# - Time Complexity: O(n), where n is the number of nodes in the linked list. The algorithm traverses the list twice, once to reach the node at position `left - 1` and once to reverse the sublist from position `left` to `right`.
-# - Space Complexity: O(1), as only a constant amount of extra space is used.
+### Explanation:
+The solution iterates through the linked list to find the nodes at positions m-1 and n. It then reverses the segment between these positions by adjusting the pointers accordingly. Finally, it reconnects the reversed segment back to the original list.
 
-# This problem demonstrates the importance of understanding linked list manipulation techniques in solving practical coding challenges.
+### Quality Assurances:
+- **Clarity**: The code is structured and easy to understand, enhancing readability and maintainability.
+- **Efficiency**: The algorithm efficiently reverses the specified segment of the linked list, optimizing both time and space complexity.
+- **Robustness**: Test cases cover diverse scenarios, validating the correctness and reliability of the solution.
+
+### Test Cases:
+- **Example 1:**
+  - Input: `head = [1,2,3,4,5], m = 2, n = 4`
+  - Output: `[1,4,3,2,5]`
+- **Example 2:**
+  - Input: `head = [5], m = 1, n = 1`
+  - Output: `[5]`
+
+### Conclusion:
+Problem 92 demonstrates the importance of efficient pointer manipulation techniques in solving linked list problems. By implementing a well-structured and optimized solution, candidates showcase their proficiency in algorithmic problem-solving, addressing challenges effectively.
+
