@@ -1,4 +1,5 @@
 ## Problem 1757: Recyclable and Low Fat Products
+https://leetcode.com/problems/recyclable-and-low-fat-products/submissions/1235899069
 
 ### Overview:
 Problem 1757 tasks you with identifying products that are both low fat and recyclable from a table named `Products`. The table contains three columns: `product_id`, `low_fats`, and `recyclable`. The `low_fats` column indicates whether a product is low fat (with values 'Y' or 'N'), and the `recyclable` column indicates whether a product is recyclable (also with values 'Y' or 'N'). The goal is to retrieve the `product_id` of items that meet both criteria.
