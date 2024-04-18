@@ -17,20 +17,30 @@ Given a binary tree containing digits from 0 to 9 only, compute the total sum of
 Utilizing a depth-first search (DFS) traversal, the solution efficiently computes the sum of root-to-leaf numbers. At each node, the current number is accumulated by multiplying it by 10 and adding the value of the current node. Upon reaching a leaf node, the calculated number is added to the running total. This approach ensures accurate calculation of the sum while traversing the tree effectively.
 
 ### Code Implementation (Python):
-```python
 class Solution:
     def sumNumbers(self, root: Optional[TreeNode]) -> int:
+        # Helper function to perform Depth-First Search (DFS)
         def dfs(node, current_sum):
             if not node:
                 return 0
+            
+            # Accumulate the current number by multiplying it by 10 and adding the value of the current node
             current_sum = current_sum * 10 + node.val
+            
+            # If it's a leaf node, return the current sum
             if not node.left and not node.right:
                 return current_sum
+            
+            # Recursively traverse left and right subtrees and sum the results
             left_sum = dfs(node.left, current_sum)
             right_sum = dfs(node.right, current_sum)
+            
+            # Return the sum of the left and right subtrees
             return left_sum + right_sum
         
+        # Start DFS from the root with an initial sum of 0
         return dfs(root, 0)
+
 ```
 
 ### Complexity Analysis:
