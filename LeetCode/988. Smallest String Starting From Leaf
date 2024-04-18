@@ -1,11 +1,13 @@
 ## Problem 988: Smallest String Starting From Leaf
 
 ### Overview:
-Problem 988, "Smallest String Starting From Leaf," tasks programmers with finding the lexicographically smallest string that starts at a leaf node and ends at the root of a binary tree. Each node in the tree contains a value representing a lowercase letter ('a' to 'z'). The solution requires traversing the binary tree efficiently while constructing and comparing strings along the paths from leaf to root.
+Problem 988 presents the challenge of finding the lexicographically smallest string that starts at a leaf node and ends at the root of a binary tree. Each node in the tree contains a lowercase letter ('a' to 'z'). The task requires a solution that efficiently traverses the binary tree while constructing and comparing strings along the paths from leaf to root.
 
 ### Approach:
-The solution employs a Depth-First Search (DFS) traversal technique to explore the binary tree structure. At each node, the algorithm accumulates the characters encountered along the path from the root to the current node, constructing potential candidate strings. By recursively traversing both left and right subtrees, the algorithm identifies the lexicographically smallest string among all possible paths from leaf to root.
+To address this problem, a Depth-First Search (DFS) traversal technique is employed. The solution algorithm traverses the binary tree, accumulating characters encountered along the path from the root to the current node. By recursively exploring both left and right subtrees, the algorithm constructs potential candidate strings. Upon reaching a leaf node, the algorithm compares the constructed string with the current smallest string, updating it if necessary to maintain the lexicographically smallest value.
 
+### Python Solution:
+```python
 class Solution:
     def smallestFromLeaf(self, root: Optional[TreeNode]) -> str:
         # Helper function to perform Depth-First Search (DFS)
@@ -35,14 +37,13 @@ class Solution:
         dfs(root, [], smallest)
         
         return smallest[0]
-
 ```
 
 ### Explanation:
-This Python3 solution utilizes a Depth-First Search (DFS) traversal approach to explore the binary tree efficiently. At each node, the algorithm appends the current node's character to the path and recursively traverses the left and right subtrees. Upon reaching a leaf node, the algorithm constructs the corresponding string by reversing the path and compares it with the current smallest string. The lexicographically smallest string among all leaf-to-root paths is determined and returned as the result.
+The DFS helper function `dfs` recursively traverses the binary tree, constructing strings along each path from leaf to root. Upon reaching a leaf node, the constructed string is compared with the current smallest string, updating it if necessary to maintain the lexicographically smallest value. This process continues until all leaf-to-root paths are explored, ensuring the identification of the smallest string.
 
 ### Quality Assurances:
-- **Code Clarity**: The code is structured and easy to understand, enhancing readability and maintainability.
+- **Clarity**: The code is structured and easy to understand, enhancing readability and maintainability.
 - **Efficiency**: The algorithm ensures efficient traversal of the binary tree, optimizing both time and space complexity.
 - **Robustness**: Test cases cover diverse scenarios, validating the correctness and reliability of the solution.
 
@@ -58,4 +59,5 @@ This Python3 solution utilizes a Depth-First Search (DFS) traversal approach to 
   - Output: `"abc"`
 
 ### Conclusion:
-This solution demonstrates proficiency in tree traversal algorithms, string manipulation techniques, and problem-solving skills. Through a well-structured and optimized approach, candidates can effectively address the problem requirements and showcase their expertise in software development and algorithm design.
+Problem 988 exemplifies the importance of efficient tree traversal algorithms and string manipulation techniques in solving complex problems. By implementing a well-structured and optimized solution, candidates demonstrate proficiency in software development and algorithmic problem-solving, showcasing their ability to tackle challenging tasks effectively.
+
