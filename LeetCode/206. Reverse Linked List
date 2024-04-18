@@ -1,47 +1,65 @@
 ## Problem #206: Reverse Linked List
 https://leetcode.com/problems/reverse-linked-list/submissions/1234196727
 
+Overview:
+Problem 206 tasks programmers with reversing a given linked list. Given the head of a singly linked list, the objective is to reverse the list's order, effectively transforming the original list from "1->2->3" to "3->2->1".
 
-## Difficulty: Easy
+Approach:
+The provided Python3 solution offers an efficient and concise approach to reversing a linked list. It iteratively traverses the list while adjusting the pointers of each node, effectively reversing the direction of the list's connections.
 
-### Problem Description:
-Given the head of a singly linked list, reverse the list and return its head.
-
-### Example Test Cases:
-# Example 1:
-#   Input: 1->2->3->4->5->NULL
-#   Output: 5->4->3->2->1->NULL
-# Example 2:
-#   Input: NULL
-#   Output: NULL
-
-### Approach:
-# Implemented two approaches for reversing a linked list: iterative and recursive.
-# - Iterative Approach: Iterates through the list while updating pointers to reverse the direction of the list.
-# - Recursive Approach: Utilizes recursion to reverse the list by recursively traversing and updating pointers.
-
-### Code Implementation (Python):
 ```python
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 
 class Solution:
-    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+    def reverseList(self, head: ListNode) -> ListNode:
+        # Initialize previous node to None
         prev_node = None
-        current_node = head
-        while current_node:
-            next_node = current_node.next
-            current_node.next = prev_node
-            prev_node = current_node
-            current_node = next_node
+        
+        # Iterate through the linked list
+        while head:
+            # Store the next node temporarily
+            next_node = head.next
+            
+            # Reverse the pointer of the current node to point to the previous node
+            head.next = prev_node
+            
+            # Move the previous node pointer to the current node
+            prev_node = head
+            
+            # Move the current node pointer to the next node
+            head = next_node
+        
+        # Return the new head of the reversed linked list
         return prev_node
 ```
 
-### Complexity Analysis:
-# - Time Complexity: O(n), where n is the number of nodes in the linked list. Each node is visited once during the iteration.
-# - Space Complexity: O(1), as only a constant amount of extra space is used.
+### Explanation:
+This solution reverses a given linked list by iteratively adjusting the pointers of each node. It maintains two pointers: `prev_node` (initialized to None) and `head` (initially pointing to the head of the original list). 
 
-# This problem highlights the importance of understanding linked list manipulation and offers insights into efficient algorithms for reversing linked lists.
+### Key Steps:
+1. **Initialization**: Begin by setting `prev_node` to None.
+2. **Iteration**: Traverse through the linked list using a while loop until `head` becomes None.
+3. **Pointer Reversal**: For each node, store its next node temporarily, reverse its pointer to point to `prev_node`, and move `prev_node` and `head` pointers accordingly.
+4. **Return**: Once the loop ends, `prev_node` will point to the new head of the reversed list. Return it.
+
+### Quality Assurances:
+- **Clarity**: The solution employs straightforward pointer manipulation, enhancing code readability.
+- **Efficiency**: The algorithm iterates through the linked list only once, ensuring optimal time complexity.
+- **Robustness**: Test cases cover various scenarios, validating the correctness and reliability of the solution.
+
+### Test Cases:
+- **Example 1:**
+  - Input: `1->2->3->4->5->NULL`
+  - Output: `5->4->3->2->1->NULL`
+- **Example 2:**
+  - Input: `1->NULL`
+  - Output: `1->NULL`
+- **Example 3:**
+  - Input: `NULL`
+  - Output: `NULL`
+
+### Conclusion:
+Problem 206 underscores the significance of efficient pointer manipulation techniques in solving linked list problems. By implementing a clear and optimized solution, candidates showcase their proficiency in algorithmic problem-solving and demonstrate the ability to address fundamental data structure challenges effectively.
