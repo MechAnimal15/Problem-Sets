@@ -1,0 +1,59 @@
+**Problem 595: Big Countries**
+https://leetcode.com/problems/big-countries/submissions/1236750675?envType=study-plan-v2&envId=top-sql-50
+
+
+**Background Information:**
+Problem 595, "Big Countries," involves identifying countries that meet specific size criteria based on their area and population. The task is to find countries that either have an area of at least three million square kilometers or a population of at least twenty-five million people.
+
+**Approach:**
+To address this problem, we leverage SQL, a versatile language for managing and querying relational databases. We construct a query that selects the name, population, and area columns from the World table. Additionally, we filter the results based on the specified criteria: countries with an area of at least three million square kilometers or a population of at least twenty-five million people.
+
+**MS SQL Server Solution with Annotations:**
+```sql
+/* Write your T-SQL query statement below */
+
+-- Selecting the name, population, and area columns from the World table
+SELECT name, population, area
+
+-- Specifying the table name
+FROM World
+
+-- Filtering countries based on area and population criteria
+WHERE area >= 3000000 OR population >= 25000000;
+```
+
+**Explanation:**
+In this SQL solution, we first specify the columns we want to select from the World table: name, population, and area. Next, we apply filtering conditions using the WHERE clause to include only countries that meet the specified criteria. Specifically, we select countries with an area of at least three million square kilometers or a population of at least twenty-five million people.
+
+**Quality Assurances:**
+- **Data Integrity**: We ensure data integrity by querying the World table directly, relying on the assumption that the table contains accurate and up-to-date information.
+- **Query Efficiency**: The SQL query is designed to efficiently retrieve relevant data, minimizing processing time and resource usage.
+
+**Test Cases:**
+- **Example 1:**
+  - **Input:**
+    ```sql
+    World table:
+    +-------------+-----------+---------+------------+--------------+
+    | name        | continent | area    | population | gdp          |
+    +-------------+-----------+---------+------------+--------------+
+    | Afghanistan | Asia      | 652230  | 25500100   | 20343000000  |
+    | Albania     | Europe    | 28748   | 2831741    | 12960000000  |
+    | Algeria     | Africa    | 2381741 | 37100000   | 188681000000 |
+    | Andorra     | Europe    | 468     | 78115      | 3712000000   |
+    | Angola      | Africa    | 1246700 | 20609294   | 100990000000 |
+    +-------------+-----------+---------+------------+--------------+
+    ```
+  - **Output:**
+    ```sql
+    +-------------+------------+---------+
+    | name        | population | area    |
+    +-------------+------------+---------+
+    | Afghanistan | 25500100   | 652230  |
+    | Algeria     | 37100000   | 2381741 |
+    +-------------+------------+---------+
+    ```
+
+**Conclusion:**
+Problem 595 illustrates the practical application of SQL in filtering and retrieving data from relational databases. By crafting an efficient SQL query, we can identify countries that meet specific size criteria, aiding in data analysis and decision-making processes.
+
