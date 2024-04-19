@@ -1,0 +1,38 @@
+## Problem 463: Island Perimeter
+https://leetcode.com/problems/island-perimeter/submissions/1236735991?envType=daily-question&envId=2024-04-18
+
+
+**Overview:**
+Problem 463 tasks us with calculating the perimeter of an island represented by a 2D grid. In this grid, each cell is either land ('1') or water ('0'). The goal is to determine the total perimeter of the island, where the perimeter is defined by the number of edges surrounding the landmass.
+
+**Approach:**
+The solution takes a straightforward approach by iterating through each cell of the grid. For every land cell encountered, it increments the perimeter by 4, as each land cell contributes four edges to the total perimeter. Additionally, it checks adjacent cells to determine if they are also land cells. If so, it subtracts 2 from the perimeter for each shared edge between adjacent land cells.
+
+### Python3 Solution:
+```python
+class Solution:
+    def islandPerimeter(self, grid: List[List[int]]) -> int:
+        perimeter = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == 1:  # Check if current cell is land
+                    perimeter += 4  # Increment perimeter by 4 for each land cell
+                    # Check if adjacent cells are also land, subtract 2 for each shared edge
+                    if i > 0 and grid[i - 1][j] == 1:
+                        perimeter -= 2
+                    if j > 0 and grid[i][j - 1] == 1:
+                        perimeter -= 2
+        return perimeter  # Return the total perimeter of the island
+
+```
+
+**Explanation:**
+The Python3 solution iterates through each cell of the grid. For each land cell encountered, it increments the perimeter by 4 and checks adjacent cells to determine if they are also land cells. If adjacent land cells are found, it subtracts 2 from the perimeter for each shared edge.
+
+**Quality Assurances:**
+- **Clarity**: The solution is concise and easy to understand, enhancing readability and comprehension.
+- **Efficiency**: It traverses the grid only once, optimizing time complexity.
+- **Robustness**: Test cases cover various scenarios, ensuring the correctness and reliability of the solution.
+
+**Conclusion:**
+Problem 463 provides a straightforward approach to calculate the perimeter of an island in a 2D grid. By implementing an efficient solution that considers adjacent cells, candidates demonstrate their problem-solving skills and understanding of grid-based algorithms.
