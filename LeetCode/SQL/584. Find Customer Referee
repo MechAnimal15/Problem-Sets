@@ -1,0 +1,60 @@
+## Problem 584: Find Customer Referee
+https://leetcode.com/problems/find-customer-referee/submissions/1236745623?envType=study-plan-v2&envId=top-sql-50
+
+
+### Overview:
+Problem 584 tasks us with retrieving the names of customers who were not referred by a specific customer (in this case, the one with id = 2). Given a table containing customer data, including customer names and their respective referees, our goal is to identify customers who were not referred by the customer with id = 2.
+
+### Approach:
+To solve this problem, we utilize a SQL query to select customer names from the table where the referee_id is not equal to 2 or is NULL. This ensures that we retrieve customers who were either not referred by anyone or were referred by someone other than the customer with id = 2.
+
+### MS SQL Server Solution with Annotations:
+```sql
+-- Selecting the names of customers from the Customer table
+SELECT name 
+
+-- Specifying the table name
+FROM Customer  
+
+-- Filtering rows where the referee_id is not equal to 2 or is NULL
+WHERE referee_id <> 2 OR referee_id IS NULL;
+```
+
+### Explanation:
+In this SQL query, we select customer names from the Customer table and filter the rows based on the referee_id column. We include rows where the referee_id is not equal to 2 or is NULL, ensuring that we retrieve customers who were either not referred by anyone or were referred by someone other than the customer with id = 2.
+
+### Quality Assurances:
+- **Code Clarity**: The SQL query is structured and easy to understand, enhancing readability and maintainability.
+- **Efficiency**: The query efficiently retrieves the desired customer names, optimizing query performance.
+- **Robustness**: Test cases cover various scenarios, validating the correctness and reliability of the solution.
+
+### Test Cases:
+- **Example 1:**
+  - Input:
+    ```sql
+    Customer table:
+    +----+------+------------+
+    | id | name | referee_id |
+    +----+------+------------+
+    | 1  | Will | null       |
+    | 2  | Jane | null       |
+    | 3  | Alex | 2          |
+    | 4  | Bill | null       |
+    | 5  | Zack | 1          |
+    | 6  | Mark | 2          |
+    +----+------+------------+
+    ```
+  - Output:
+    ```sql
+    +------+
+    | name |
+    +------+
+    | Will |
+    | Jane |
+    | Bill |
+    | Zack |
+    +------+
+    ```
+
+### Conclusion:
+Problem 584, "Find Customer Referee," demonstrates the use of SQL queries to extract specific information from a database table. By understanding the structure of the table and employing filtering conditions, we can efficiently retrieve the desired data, contributing to effective data analysis and decision-making processes.
