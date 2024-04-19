@@ -1,20 +1,37 @@
 ## Problem 1757: Recyclable and Low Fat Products
 https://leetcode.com/problems/recyclable-and-low-fat-products/submissions/1235899069
 
+
 ### Overview:
-Problem 1757 tasks you with identifying products that are both low fat and recyclable from a table named `Products`. The table contains three columns: `product_id`, `low_fats`, and `recyclable`. The `low_fats` column indicates whether a product is low fat (with values 'Y' or 'N'), and the `recyclable` column indicates whether a product is recyclable (also with values 'Y' or 'N'). The goal is to retrieve the `product_id` of items that meet both criteria.
+Problem 1757 involves identifying products that are both recyclable and low fat based on certain criteria from a database. It requires writing a SQL query to extract the relevant information and filter the products accordingly.
 
-### Python Solution:
-# Write your MySQL query statement below
+### Approach:
+To solve this problem, a SQL query is constructed to retrieve products meeting the specified criteria. The query involves accessing the `Products` table and filtering rows based on the values of the `low_fats` and `recyclable` columns.
 
-SELECT product_id  -- Selecting the product_id column from the Products table
-FROM Products  -- Specifying the table name
-WHERE low_fats = 'Y' AND recyclable = 'Y';  -- Filtering rows where low_fats is 'Y' and recyclable is 'Y'
+### MS SQL Server Solution:
+```sql
+/* Write your T-SQL query statement below */
 
+-- Selecting the product_id column from the Products table
+SELECT product_id 
+
+-- Specifying the table name
+FROM Products  
+
+-- Filtering rows where low_fats is 'Y' and recyclable is 'Y'
+WHERE low_fats = 'Y' AND recyclable = 'Y';  
 ```
+- `SELECT`: Specifies the columns to be included in the output.
+- `FROM`: Specifies the table involved in the query.
+- `WHERE`: Filters the results to include only products that are both recyclable and low fat.
 
 ### Explanation:
-This SQL query selects the `product_id` from the `Products` table where the `low_fats` column is 'Y' (indicating low fat) and the `recyclable` column is 'Y' (indicating recyclable). The result contains the IDs of products that are both low fat and recyclable.
+The SQL query retrieves the `product_id` from the `Products` table where the `low_fats` column is 'Y' (indicating low fat) and the `recyclable` column is 'Y' (indicating recyclable). By applying these filters, the query identifies products that meet both criteria simultaneously.
+
+### Quality Assurances:
+- **Clarity**: The SQL query is straightforward and easy to understand, enhancing readability and maintainability.
+- **Efficiency**: The query ensures efficient retrieval of relevant information from the database.
+- **Robustness**: The solution is robust and reliable, handling different scenarios effectively.
 
 ### Test Cases:
 - **Example 1:**
@@ -31,7 +48,7 @@ This SQL query selects the `product_id` from the `Products` table where the `low
     | 4           | N        | N          |
     +-------------+----------+------------+
     ```
-  - Output: 
+  - Expected Output: 
     ```
     +-------------+
     | product_id  |
@@ -40,8 +57,6 @@ This SQL query selects the `product_id` from the `Products` table where the `low
     | 3           |
     +-------------+
     ```
-  - Explanation: Only products 1 and 3 are both low fat and recyclable.
 
 ### Conclusion:
-Problem 1757 demonstrates how SQL queries can efficiently filter data based on multiple conditions, allowing for targeted analysis and retrieval of specific information from a database. By formulating a well-structured query, programmers can quickly identify and extract relevant data points, facilitating informed decision-making and analysis.
-
+Problem 1757 demonstrates the application of SQL queries to filter and extract information from a database based on specific criteria. By crafting an optimized query, candidates showcase their proficiency in SQL and problem-solving skills, addressing real-world scenarios efficiently.
