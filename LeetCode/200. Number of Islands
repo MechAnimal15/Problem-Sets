@@ -1,0 +1,71 @@
+## Problem 200: Number of Islands
+https://leetcode.com/problems/number-of-islands/submissions/1236641085?envType=daily-question&envId=2024-04-19
+
+
+### Overview:
+Problem 200 involves counting the number of islands in a 2D binary grid where '1's represent land and '0's represent water. An island is formed by connecting adjacent lands horizontally or vertically.
+
+### Approach:
+The solution employs a depth-first search (DFS) algorithm to traverse the grid, identifying islands and marking visited cells to avoid redundant exploration.
+
+### Python3 Solution:
+```python
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        # Function to perform DFS traversal
+        def dfs(grid, i, j):
+            if i < 0 or i >= len(grid) or j < 0 or j >= len(grid[0]) or grid[i][j] == '0':
+                return
+            grid[i][j] = '0'  # Mark current cell as visited
+            # Explore neighboring cells
+            dfs(grid, i + 1, j)
+            dfs(grid, i - 1, j)
+            dfs(grid, i, j + 1)
+            dfs(grid, i, j - 1)
+        
+        island_count = 0
+        # Iterate through the grid and perform DFS on unvisited land cells
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == '1':
+                    island_count += 1
+                    dfs(grid, i, j)  # Explore the island and mark visited cells
+        return island_count
+```
+
+### Explanation:
+The Python3 solution defines a function `dfs` to perform depth-first search traversal starting from a land cell ('1'). It explores neighboring cells recursively, marking visited cells as '0'. The main function iterates through the grid, counting islands and exploring unvisited land cells using DFS.
+
+### Quality Assurances:
+- **Clarity**: The Python solution is concise and well-structured, enhancing readability and understanding.
+- **Efficiency**: The DFS algorithm efficiently identifies islands and explores adjacent cells without redundant traversal.
+- **Robustness**: The solution handles different grid sizes and configurations effectively.
+
+### Test Cases:
+- **Example 1:**
+  - Input:
+    ```python
+    grid = [
+      ["1","1","1","1","0"],
+      ["1","1","0","1","0"],
+      ["1","1","0","0","0"],
+      ["0","0","0","0","0"]
+    ]
+    ```
+  - Expected Output: 1
+
+- **Example 2:**
+  - Input:
+    ```python
+    grid = [
+      ["1","1","0","0","0"],
+      ["1","1","0","0","0"],
+      ["0","0","1","0","0"],
+      ["0","0","0","1","1"]
+    ]
+    ```
+  - Expected Output: 3
+
+### Conclusion:
+Problem 200 highlights the application of depth-first search (DFS) algorithms to solve graph-related problems efficiently. By implementing a well-structured and optimized solution, candidates demonstrate their proficiency in algorithmic problem-solving and graph traversal techniques.
+
