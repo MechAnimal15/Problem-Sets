@@ -1,0 +1,50 @@
+**Problem 1683: Invalid Tweets**
+https://leetcode.com/problems/invalid-tweets/submissions/1237410670?envType=study-plan-v2&envId=top-sql-50
+
+
+**Background:**
+In Problem 1683, "Invalid Tweets," we're tasked with identifying tweets that exceed a certain character limit. Given a table containing tweet IDs and their respective content, we need to find the IDs of tweets whose content exceeds 15 characters.
+
+**Approach:**
+To solve this problem using SQL Server, we construct a query that selects the tweet IDs from the Tweets table where the length of the content exceeds 15 characters. We utilize the LEN() function to determine the length of each tweet's content and filter tweets where this length is greater than 15.
+
+**MS SQL Server Solution:**
+```sql
+SELECT tweet_id
+FROM Tweets
+WHERE LEN(content) > 15;
+```
+
+**Explanation:**
+This SQL query selects the tweet_id column from the Tweets table and filters rows where the length of the content column exceeds 15 characters using the LEN() function. 
+
+**Quality Assurances:**
+- **Correctness:** The solution accurately identifies tweets with content exceeding 15 characters.
+- **Efficiency:** The SQL query executes efficiently, leveraging built-in functions to determine content length.
+- **Robustness:** The solution handles edge cases such as empty tweets or tweets with exactly 15 characters.
+
+**Test Cases:**
+- **Example 1:**
+  - Input:
+    ```sql
+    Tweets table:
+    +----------+----------------------------------+
+    | tweet_id | content                          |
+    +----------+----------------------------------+
+    | 1        | Vote for Biden                   |
+    | 2        | Let us make America great again! |
+    +----------+----------------------------------+
+    ```
+  - Output:
+    ```sql
+    +----------+
+    | tweet_id |
+    +----------+
+    | 2        |
+    +----------+
+    ```
+  - Explanation: Tweet 1 has a length of 14 characters, making it valid. Tweet 2 has a length of 32 characters, making it invalid.
+
+**Conclusion:**
+Problem 1683 showcases the utility of SQL in filtering and analyzing textual data. By crafting a concise SQL query, we efficiently identify invalid tweets based on their character count, facilitating data analysis and moderation tasks in social media applications.
+
