@@ -1,4 +1,5 @@
 **Problem 570: Managers with at Least 5 Direct Reports**
+https://leetcode.com/problems/managers-with-at-least-5-direct-reports/submissions/1238298519?envType=study-plan-v2&envId=top-sql-50
 
 **Background:**
 In Problem 570, we are tasked with identifying managers who have at least five direct reports. We're given a table called Employee, which contains information about employees, including their names, departments, and manager IDs.
@@ -10,18 +11,15 @@ To solve this problem using MS SQL Server, we utilize a SQL query that selects t
 ```sql
 /* Write your T-SQL query statement below */
 
--- Selecting the names of managers with at least five direct reports
-SELECT e1.name AS manager_name  -- This statement selects the 'name' column from the 'Employee' table and aliases it as 'manager_name' for clarity
-
-FROM Employee e1  -- This line specifies the Employee table and aliases it as 'e1' for brevity
-
+SELECT e1.name AS manager_name
+FROM Employee e1
 JOIN (
-    -- Subquery to count the number of direct reports for each manager
-    SELECT managerId, COUNT(id) AS reportCount  -- This subquery selects the 'managerId' column and counts the number of 'id's for each manager, aliasing the count as 'reportCount'
-    FROM Employee  -- This subquery specifies the Employee table
-    GROUP BY managerId  -- This subquery groups the results by the 'managerId' to count the reports for each manager
-    HAVING COUNT(id) >= 5  -- This subquery filters the groups to include only those managers with at least five direct reports
-) e2 ON e1.id = e2.managerId;  -- This line joins the main Employee table with the subquery on the 'id' column matching the 'managerId'
+    SELECT managerId, COUNT(id) AS reportCount
+    FROM Employee
+    GROUP BY managerId
+    HAVING COUNT(id) >= 5
+) e2 ON e1.id = e2.managerId;
+
 
 ```
 
