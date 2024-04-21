@@ -1,0 +1,65 @@
+1971. Find if Path Exists in Graph
+https://leetcode.com/problems/find-if-path-exists-in-graph/submissions/1238290151?envType=daily-question&envId=2024-04-21
+
+
+**Problem Overview:**
+In Problem 1971, "Find if Path Exists in Graph," we're given a bi-directional graph with vertices labeled from 0 to n - 1, represented as a list of edges. Each edge is a pair of vertices, and we need to determine if there exists a valid path from a given source vertex to a destination vertex.
+
+**Approach:**
+To solve this problem, we can use depth-first search (DFS) to traverse the graph and check if there's a path from the source to the destination vertex. We'll start DFS from the source vertex and explore all possible paths until we reach the destination vertex or exhaust all options.
+
+**Python3 Solution with Annotations:**
+
+```python
+class Solution:
+    def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
+        # Construct graph as adjacency list
+        graph = defaultdict(list)
+        for u, v in edges:
+            graph[u].append(v)
+            graph[v].append(u)
+        
+        # Helper function for DFS traversal
+        def dfs(node, visited):
+            if node == destination:
+                return True
+            visited.add(node)
+            for neighbor in graph[node]:
+                if neighbor not in visited:
+                    if dfs(neighbor, visited):
+                        return True
+            return False
+        
+        # Perform DFS from source vertex
+        return dfs(source, set())
+```
+
+**Explanation:**
+
+- We first construct the graph as an adjacency list, where each vertex is mapped to its neighboring vertices.
+- We define a helper function `dfs` to perform depth-first search traversal of the graph. It explores each neighbor of the current node recursively until it reaches the destination vertex or exhausts all options.
+- If the destination vertex is reached during the traversal, we return `True`, indicating the existence of a valid path. Otherwise, we return `False`.
+- Finally, we call the `dfs` function with the source vertex and an empty set to start the DFS traversal.
+
+**Quality Assurances:**
+
+- **Correctness:** The solution accurately determines the existence of a valid path from the source to the destination vertex.
+- **Efficiency:** The DFS algorithm efficiently explores the graph and terminates once a valid path is found.
+- **Robustness:** The solution handles various graph configurations and edge cases, ensuring reliable performance.
+
+**Test Cases:**
+
+- **Example 1:**
+  - Input: n = 3, edges = [[0,1],[1,2],[2,0]], source = 0, destination = 2
+  - Output: true
+  - Explanation: A valid path exists from vertex 0 to vertex 2.
+
+- **Example 2:**
+  - Input: n = 6, edges = [[0,1],[0,2],[3,5],[5,4],[4,3]], source = 0, destination = 5
+  - Output: false
+  - Explanation: There is no path from vertex 0 to vertex 5.
+
+**Conclusion:**
+
+Problem 1971 demonstrates the use of depth-first search (DFS) algorithm to determine the existence of a valid path in a bi-directional graph. By implementing a recursive DFS traversal, we efficiently explore the graph and identify valid paths from the source to the destination vertex, facilitating graph traversal and path finding tasks in various applications.
+
