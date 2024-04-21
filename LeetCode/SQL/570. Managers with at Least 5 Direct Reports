@@ -9,8 +9,8 @@ To solve this problem using MS SQL Server, we utilize a SQL query that selects t
 
 **MS SQL Server Solution:**
 ```sql
-/* Write your T-SQL query statement below */
 
+/* Write your T-SQL query statement below */
 SELECT e1.name AS manager_name
 FROM Employee e1
 JOIN (
@@ -19,8 +19,6 @@ JOIN (
     GROUP BY managerId
     HAVING COUNT(id) >= 5
 ) e2 ON e1.id = e2.managerId;
-
-
 ```
 
 **Annotations:**
