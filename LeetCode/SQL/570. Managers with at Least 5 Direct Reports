@@ -1,0 +1,70 @@
+**Problem 570: Managers with at Least 5 Direct Reports**
+
+**Background:**
+In Problem 570, we are tasked with identifying managers who have at least five direct reports. We're given a table called Employee, which contains information about employees, including their names, departments, and manager IDs.
+
+**Approach:**
+To solve this problem using MS SQL Server, we utilize a SQL query that selects the names of managers who have at least five direct reports. We achieve this by joining the Employee table with a subquery that calculates the count of direct reports for each manager, filtering those with counts of five or more.
+
+**MS SQL Server Solution:**
+```sql
+/* Write your T-SQL query statement below */
+
+-- Selecting the names of managers with at least five direct reports
+SELECT e1.name AS manager_name  -- This statement selects the 'name' column from the 'Employee' table and aliases it as 'manager_name' for clarity
+
+FROM Employee e1  -- This line specifies the Employee table and aliases it as 'e1' for brevity
+
+JOIN (
+    -- Subquery to count the number of direct reports for each manager
+    SELECT managerId, COUNT(id) AS reportCount  -- This subquery selects the 'managerId' column and counts the number of 'id's for each manager, aliasing the count as 'reportCount'
+    FROM Employee  -- This subquery specifies the Employee table
+    GROUP BY managerId  -- This subquery groups the results by the 'managerId' to count the reports for each manager
+    HAVING COUNT(id) >= 5  -- This subquery filters the groups to include only those managers with at least five direct reports
+) e2 ON e1.id = e2.managerId;  -- This line joins the main Employee table with the subquery on the 'id' column matching the 'managerId'
+
+```
+
+**Annotations:**
+- **SELECT Clause:** This part of the query selects the name of the manager, aliasing it as 'manager_name' for clarity.
+- **FROM Clause:** Here, we specify the Employee table and alias it as 'e1' for brevity.
+- **JOIN Clause with Subquery:** We join the Employee table with a subquery that calculates the count of direct reports for each manager and filters those with counts of five or more. The subquery aliases the managerId and the count of direct reports as 'reportCount'.
+- **ON Clause:** This clause specifies the join condition, matching the managerId from the main Employee table with the managerId from the subquery.
+
+**Explanation:**
+The SQL query efficiently identifies managers with at least five direct reports by utilizing a subquery to count the number of direct reports for each manager and then filtering the results based on the count.
+
+**Quality Assurances:**
+- **Correctness:** The solution accurately identifies managers with at least five direct reports.
+- **Efficiency:** The SQL query executes efficiently, leveraging a subquery to calculate the count of direct reports.
+- **Robustness:** The solution handles various scenarios, including cases where managers have fewer than five direct reports or where there are no managers.
+
+**Test Cases:**
+- **Example 1:**
+  - Input:
+    ```sql
+    Employee table:
+    +-----+-------+------------+-----------+
+    | id  | name  | department | managerId |
+    +-----+-------+------------+-----------+
+    | 101 | John  | A          | null      |
+    | 102 | Dan   | A          | 101       |
+    | 103 | James | A          | 101       |
+    | 104 | Amy   | A          | 101       |
+    | 105 | Anne  | A          | 101       |
+    | 106 | Ron   | B          | 101       |
+    +-----+-------+------------+-----------+
+    ```
+  - Output:
+    ```sql
+    +-------------+
+    | manager_name|
+    +-------------+
+    | John        |
+    +-------------+
+    ```
+  - Explanation: John is the only manager with at least five direct reports.
+
+**Conclusion:**
+Problem 570 highlights the effective use of SQL in analyzing organizational structures and identifying key personnel based on predefined criteria. By crafting a well-designed SQL query, we can efficiently extract valuable insights from relational databases, aiding in decision-making processes within organizations.
+
