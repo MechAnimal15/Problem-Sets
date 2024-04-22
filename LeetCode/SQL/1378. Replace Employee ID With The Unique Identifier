@@ -1,0 +1,75 @@
+1378. Replace Employee ID With The Unique Identifier
+https://leetcode.com/problems/replace-employee-id-with-the-unique-identifier/submissions/1239134224?envType=study-plan-v2&envId=top-sql-50
+
+
+```sql
+    # Write your MySQL query statement below
+    
+    -- Retrieve the unique identifier for each employee, replacing with null if not available
+      SELECT eu.unique_id AS unique_id, e.name AS name
+      FROM Employees e
+      LEFT JOIN EmployeeUNI eu ON e.id = eu.id;
+```
+
+**Annotations:**
+1. **SELECT Statement:** 
+   - The `SELECT` statement retrieves data from the database.
+   - We select the `unique_id` column from the `EmployeeUNI` table and the `name` column from the `Employees` table.
+
+2. **LEFT JOIN Operation:**
+   - We use a `LEFT JOIN` operation to join the `Employees` and `EmployeeUNI` tables based on the `id` column.
+   - This ensures that all rows from the `Employees` table are included in the result set, regardless of whether they have corresponding entries in the `EmployeeUNI` table.
+
+3. **Alias Usage:**
+   - We use aliases `e` for the `Employees` table and `eu` for the `EmployeeUNI` table to simplify and shorten the code.
+
+4. **NULL Replacement:**
+   - If an employee does not have a corresponding entry in the `EmployeeUNI` table (i.e., they do not have a unique identifier), their `unique_id` is shown as `null`.
+
+**Explanation:**
+This SQL query efficiently retrieves the unique identifier for each employee, replacing it with null if unavailable. It ensures that all employees are accounted for in the result set, even if they do not have a unique identifier. By leveraging the `LEFT JOIN` operation, we combine data from both tables based on the `id` column, providing a comprehensive view of employee information.
+
+**Quality Assurances:**
+- **Correctness:** The solution accurately displays the unique identifier for each employee, handling cases where an identifier may be missing.
+- **Efficiency:** The SQL query executes efficiently, utilizing a LEFT JOIN operation for optimal performance.
+- **Robustness:** The solution handles various scenarios, ensuring completeness and accuracy in identifying employees with unique identifiers.
+
+**Test Cases:**
+- **Example 1:**
+  - **Input:**
+    ```sql
+    Employees table:
+    +----+----------+
+    | id | name     |
+    +----+----------+
+    | 1  | Alice    |
+    | 7  | Bob      |
+    | 11 | Meir     |
+    | 90 | Winston  |
+    | 3  | Jonathan |
+    +----+----------+
+    EmployeeUNI table:
+    +----+-----------+
+    | id | unique_id |
+    +----+-----------+
+    | 3  | 1         |
+    | 11 | 2         |
+    | 90 | 3         |
+    +----+-----------+
+    ```
+  - **Output:**
+    ```sql
+    +-----------+----------+
+    | unique_id | name     |
+    +-----------+----------+
+    | null      | Alice    |
+    | null      | Bob      |
+    | 2         | Meir     |
+    | 3         | Winston  |
+    | 1         | Jonathan |
+    +-----------+----------+
+    ```
+
+**Conclusion:**
+Problem 1378 addresses the need to replace employee IDs with unique identifiers in a company database. Through a carefully crafted SQL query, we efficiently retrieve this information, handling cases where unique identifiers may be unavailable. This solution demonstrates the practical application of SQL in managing and organizing employee data, ensuring accuracy and completeness in identifying employees with unique identifiers.
+
