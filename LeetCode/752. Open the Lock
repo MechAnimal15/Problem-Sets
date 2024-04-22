@@ -1,0 +1,76 @@
+752. Open the Lock
+https://leetcode.com/problems/open-the-lock/submissions/1239093406?envType=daily-question&envId=2024-04-22
+
+
+**Problem Overview:**
+In problem 752, "Open the Lock," we're presented with a lock with four circular wheels, each having ten slots labeled from '0' to '9'. The lock starts at '0000', and we're given a list of deadends, codes where the lock becomes stuck. Our goal is to find the minimum number of turns required to reach a target combination, avoiding the deadends.
+
+**Approach:**
+To solve this problem efficiently, we utilize a breadth-first search (BFS) algorithm. We start from the initial state ('0000') and explore all possible combinations by trying all valid moves for each wheel. We continue this process level by level until we reach the target combination or exhaust all possible combinations. During exploration, we avoid revisiting deadends to prevent getting stuck.
+
+**Python3 Solution:**
+```python
+from collections import deque
+
+
+class Solution:
+    def openLock(self, deadends, target):
+        # Convert deadends to a set for faster lookup
+        dead = set(deadends)
+        # If '0000' is a deadend, it's impossible to open the lock
+        if "0000" in dead:
+            return -1
+
+        # Initialize a queue with the initial state ('0000') and the number of turns
+        queue = deque([("0000", 0)])
+        # Initialize a set to keep track of visited states to avoid revisiting
+        visited = set(["0000"])
+
+        # Perform a breadth-first search (BFS)
+        while queue:
+            # Get the current state and the number of turns taken
+            current, turns = queue.popleft()
+            # If the target state is reached, return the number of turns
+            if current == target:
+                return turns
+
+            # Iterate through each digit of the lock
+            for i in range(4):
+                # Try both clockwise and counterclockwise turns
+                for move in [-1, 1]:
+                    # Calculate the new digit after the turn
+                    new_digit = str((int(current[i]) + move) % 10)
+                    # Generate the new state after the turn
+                    new_code = current[:i] + new_digit + current[i + 1 :]
+
+                    # If the new state is not visited and not a deadend, add it to the queue
+                    if new_code not in visited and new_code not in dead:
+                        visited.add(new_code)
+                        queue.append((new_code, turns + 1))
+
+        # If the target state cannot be reached, return -1
+        return -1
+
+```
+
+**Explanation:**
+This Python solution implements a BFS algorithm to find the minimum number of turns required to open the lock. It initializes a queue with the initial state ('0000') and explores all possible combinations while avoiding deadends. The algorithm terminates when the target combination is reached, returning the minimum number of turns or -1 if it's impossible to reach the target.
+
+**Quality Assurances:**
+- **Correctness:** The solution accurately identifies the minimum number of turns required to open the lock.
+- **Efficiency:** The BFS algorithm efficiently explores possible combinations, avoiding revisiting deadends.
+- **Robustness:** The solution handles edge cases such as empty deadends list and invalid target combinations.
+
+**Test Cases:**
+- **Example 1:**
+  - Input:
+    ```python
+    deadends = ["0201","0101","0102","1212","2002"]
+    target = "0202"
+    ```
+  - Output: 6
+  - Explanation: A sequence of valid moves would be "0000" -> "1000" -> "1100" -> "1200" -> "1201" -> "1202" -> "0202".
+
+**Conclusion:**
+Problem 752 demonstrates the application of BFS in finding the shortest path to a target state while avoiding obstacles. By efficiently exploring possible combinations, we can determine the minimum number of turns required to open the lock, providing a practical solution to a common problem.
+
