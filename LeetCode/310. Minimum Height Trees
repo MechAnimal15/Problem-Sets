@@ -1,0 +1,68 @@
+310. Minimum Height Trees
+https://leetcode.com/problems/minimum-height-trees/submissions/1240050292?envType=daily-question&envId=2024-04-23
+
+
+**Approach:**
+To find the minimum height trees (MHTs), we need to identify the central nodes of the tree, which are the nodes with the minimum height. We can achieve this by iteratively removing leaf nodes (nodes with only one neighbor) from the graph until we are left with either one or two central nodes.
+
+**Python3 Solution:**
+```python
+from collections import defaultdict
+
+class Solution:
+    def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
+        # Base cases: if there are 1 or 2 nodes, return the list of nodes
+        if n == 1:
+            return [0]
+        if n == 2:
+            return [0, 1]
+        
+        # Create an adjacency list to represent the graph
+        graph = defaultdict(set)
+        for u, v in edges:
+            graph[u].add(v)
+            graph[v].add(u)
+        
+        # Initialize a queue with leaf nodes
+        leaves = [i for i in range(n) if len(graph[i]) == 1]
+        
+        # Iteratively remove leaf nodes until we are left with 1 or 2 central nodes
+        while n > 2:
+            n -= len(leaves)
+            new_leaves = []
+            for leaf in leaves:
+                neighbor = graph[leaf].pop()
+                graph[neighbor].remove(leaf)
+                if len(graph[neighbor]) == 1:
+                    new_leaves.append(neighbor)
+            leaves = new_leaves
+        
+        # Return the remaining central nodes
+        return leaves
+```
+
+**Explanation:**
+- We first handle the base cases where there are only 1 or 2 nodes in the tree.
+- We then construct an adjacency list representation of the graph.
+- Next, we initialize a list of leaf nodes, which are nodes with only one neighbor.
+- We iteratively remove leaf nodes and their corresponding edges until we are left with either one or two central nodes.
+- Finally, we return the list of central nodes.
+
+**Quality Assurances:**
+- **Correctness:** The solution accurately identifies the minimum height trees.
+- **Efficiency:** The solution uses efficient data structures and algorithms to process the graph.
+- **Robustness:** The solution handles various tree structures and edge cases effectively.
+
+**Test Cases:**
+- **Example 1:**
+  - Input: n = 4, edges = [[1,0],[1,2],[1,3]]
+  - Output: [1]
+  - Explanation: The only MHT is formed when node 1 is the root.
+- **Example 2:**
+  - Input: n = 6, edges = [[3,0],[3,1],[3,2],[3,4],[5,4]]
+  - Output: [3,4]
+  - Explanation: MHTs are formed when either node 3 or node 4 is the root.
+
+**Conclusion:**
+Problem 310 highlights the importance of identifying central nodes in a tree to minimize its height. By employing a systematic approach of iteratively removing leaf nodes, we can efficiently determine the minimum height trees in a given graph. This solution demonstrates the practical application of graph algorithms in solving real-world problems related to tree structures.
+
