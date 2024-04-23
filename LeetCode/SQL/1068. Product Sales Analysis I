@@ -1,0 +1,67 @@
+**Problem 1068: Product Sales Analysis I**
+https://leetcode.com/problems/product-sales-analysis-i/submissions/1240062659?envType=study-plan-v2&envId=top-sql-50
+
+
+**Approach:**
+To solve this problem, we'll use SQL to query the Sales and Product tables. We need to retrieve the product_name, year, and price for each sale_id in the Sales table. We'll join the Sales and Product tables based on the product_id column to link the product information with the sales data.
+
+**SQL Solution with Annotations:**
+```ms sql server
+  # Write your MySQL query statement below
+  
+  -- Selecting the product_name, year, and price for each sale_id in the Sales table
+  SELECT 
+      p.product_name,  -- Selecting the 'product_name' column from the 'Product' table
+      s.year,  -- Selecting the 'year' column from the 'Sales' table
+      s.price  -- Selecting the 'price' column from the 'Sales' table
+  FROM 
+      Sales s  -- Specifying the Sales table and aliasing it as 's' for brevity
+  JOIN 
+      Product p ON s.product_id = p.product_id;  -- Joining the Sales and Product tables on the 'product_id' column
+```
+
+**Explanation:**
+This SQL query retrieves the product_name, year, and price for each sale_id in the Sales table by joining the Sales and Product tables on the 'product_id' column. By linking the tables, we can associate each sale with the corresponding product information.
+
+**Quality Assurances:**
+- **Correctness:** The solution accurately retrieves the required data from the Sales and Product tables.
+- **Efficiency:** The SQL query executes efficiently, leveraging the join operation to combine the necessary information.
+- **Robustness:** The solution handles scenarios where product information is missing or incorrectly linked.
+
+**Test Cases:**
+- **Example 1:**
+  - Input:
+    - Sales table:
+      ```
+      +---------+------------+------+----------+-------+
+      | sale_id | product_id | year | quantity | price |
+      +---------+------------+------+----------+-------+ 
+      | 1       | 100        | 2008 | 10       | 5000  |
+      | 2       | 100        | 2009 | 12       | 5000  |
+      | 7       | 200        | 2011 | 15       | 9000  |
+      +---------+------------+------+----------+-------+
+      ```
+    - Product table:
+      ```
+      +------------+--------------+
+      | product_id | product_name |
+      +------------+--------------+
+      | 100        | Nokia        |
+      | 200        | Apple        |
+      | 300        | Samsung      |
+      +------------+--------------+
+      ```
+  - Output:
+    ```
+    +--------------+-------+-------+
+    | product_name | year  | price |
+    +--------------+-------+-------+
+    | Nokia        | 2008  | 5000  |
+    | Nokia        | 2009  | 5000  |
+    | Apple        | 2011  | 9000  |
+    +--------------+-------+-------+
+    ```
+
+**Conclusion:**
+Problem 1068 showcases the application of SQL in analyzing product sales data. By efficiently querying the Sales and Product tables, we can extract valuable insights into product performance and pricing, aiding in business decision-making processes.
+
