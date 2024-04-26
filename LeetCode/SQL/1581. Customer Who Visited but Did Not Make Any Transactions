@@ -1,17 +1,14 @@
 **Problem 1581: Customer Who Visited but Did Not Make Any Transactions**
-https://leetcode.com/problems/customer-who-visited-but-did-not-make-any-transactions/submissions/1242617696?envType=study-plan-v2&envId=top-sql-50
+https://leetcode.com/problems/customer-who-visited-but-did-not-make-any-transactions/submissions/1242627538?source=submission-ac
 
 
-**Problem 1581: Customer Who Visited but Did Not Make Any Transactions**
-
-**Problem Description:**
-You are given two tables: Visits and Transactions. The Visits table contains information about customers who visited a mall, and the Transactions table contains information about transactions made during those visits. Your task is to find the IDs of the customers who visited the mall but did not make any transactions, along with the number of times they made such visits.
+**Problem Overview:**
+Problem 1581, "Customer Who Visited but Did Not Make Any Transactions," requires identifying customers who visited a mall but did not make any transactions during their visit. This involves analyzing two tables: "Visits" and "Transactions." The "Visits" table contains data about customers who visited the mall, while the "Transactions" table records transactions made during those visits. The goal is to return the IDs of customers who visited but made no transactions, along with the count of such visits for each customer.
 
 **Approach:**
-To solve this problem, we need to identify customers who visited the mall but did not make any transactions. We can achieve this by performing a LEFT JOIN between the Visits and Transactions tables and then filtering out the rows where the transaction ID is NULL, indicating that no transaction was made during the visit.
+To solve this problem, we can utilize a SQL query that combines the data from the "Visits" and "Transactions" tables. By performing a left join and filtering out the visits with associated transactions, we can isolate the visits where no transactions were made. Subsequently, we can group the results by customer ID and count the number of visits without transactions for each customer.
 
 **MS SQL Server Solution:**
-
 ```sql
   SELECT v.customer_id, COUNT(v.visit_id) AS count_no_trans 
   FROM Visits v 
@@ -22,18 +19,54 @@ To solve this problem, we need to identify customers who visited the mall but di
 ```
 
 **Explanation:**
-  - `SELECT v.customer_id`: Selects the customer_id column from the Visits table.
-  - `COUNT(v.visit_id) AS count_no_trans`: Counts the number of visits for each customer and aliases the result as count_no_trans.
-  - `FROM Visits v`: Specifies the Visits table and aliases it as v.
-  - `LEFT JOIN Transactions t ON v.visit_id = t.visit_id`: Performs a left join between the Visits and Transactions tables based on the visit_id column.
-  - `WHERE t.transaction_id IS NULL`: Filters out the rows where no transaction was made during the visit.
-  - `GROUP BY v.customer_id`: Groups the results by customer_id to count the number of visits for each customer.
+  - The SQL query selects the customer ID from the "Visits" table and counts the visit IDs associated with each customer, aliasing the count as "count_no_trans."
+  - It performs a left join between the "Visits" table (aliased as "v") and the "Transactions" table (aliased as "t") based on the visit ID.
+  - The WHERE clause filters out rows where the transaction ID is NULL, indicating no transactions were made during the visit.
+  - Finally, the results are grouped by customer ID using the GROUP BY clause.
 
 **Quality Assurances:**
-  - The solution correctly identifies customers who visited but did not make any transactions.
-  - The query is optimized for efficiency and performance, ensuring fast execution even for large datasets.
-  - Test cases have been executed to validate the accuracy of the solution.
+    - The SQL query is designed to accurately identify customers who visited without making any transactions.
+  - It ensures that each visit is counted only once, even if multiple transactions occurred during the visit.
+  - The left join guarantees that all visits are included in the results, even if there are no corresponding transactions.
+  
+**Test Cases:**
+- **Input:**
+  ```sql
+  Visits:
+  +----------+-------------+
+  | visit_id | customer_id |
+  +----------+-------------+
+  | 1        | 23          |
+  | 2        | 9           |
+  | 4        | 30          |
+  | 5        | 54          |
+  | 6        | 96          |
+  | 7        | 54          |
+  | 8        | 54          |
+  +----------+-------------+
+
+  Transactions:
+  +----------------+----------+--------+
+  | transaction_id | visit_id | amount |
+  +----------------+----------+--------+
+  | 2              | 5        | 310    |
+  | 3              | 5        | 300    |
+  | 9              | 5        | 200    |
+  | 12             | 1        | 910    |
+  | 13             | 2        | 970    |
+  +----------------+----------+--------+
+  ```
+- **Output:**
+  ```sql
+  +-------------+----------------+
+  | customer_id | count_no_trans |
+  +-------------+----------------+
+  | 30          | 1              |
+  | 96          | 1              |
+  | 54          | 2              |
+  +-------------+----------------+
+  ```
 
 **Conclusion:**
-In conclusion, this MS SQL Server solution efficiently addresses the problem of identifying customers who visited the mall but did not make any transactions. By leveraging SQL JOIN operations and filtering techniques, we can retrieve the desired information accurately and reliably. This solution provides valuable insights for analyzing customer behavior and optimizing business strategies.
+The provided SQL query effectively identifies customers who visited the mall but did not make any transactions. By leveraging a left join and filtering out visits with associated transactions, the query accurately calculates the count of such visits for each customer. This solution ensures efficiency, accuracy, and reliability in identifying customers with specific visit behavior.
 
