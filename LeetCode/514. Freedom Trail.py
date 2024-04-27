@@ -17,9 +17,21 @@
 # ```python
 class Solution:
     def findRotateSteps(self, ring: str, key: str) -> int:
-        # Find the minimum steps between two indexes of ring
-        def count_steps(curr, next):
-            steps_between = abs(curr - next)
+        """
+        Finds the minimum number of steps required to spell the keyword
+        using a metal dial with a rotating ring.
+
+        Args:
+            ring (str): The characters engraved on the rotating ring.
+            key (str): The keyword to be spelled.
+
+        Returns:
+            int: The minimum number of steps required.
+
+        """
+        # Function to calculate the minimum steps between two indexes of the ring
+        def calculate_steps(current_idx, next_idx):
+            steps_between = abs(current_idx - next_idx)
             steps_around = len(ring) - steps_between
             return min(steps_between, steps_around)
 
@@ -29,23 +41,23 @@ class Solution:
             if char not in char_indices:
                 char_indices[char] = []
             char_indices[char].append(i)
-        
+
         # Initialize the memoization table to store minimum steps
         memo = [[float('inf')] * len(ring) for _ in range(len(key))]
 
         # Initialize the starting position of the ring
-        start_pos = 0
+        starting_position = 0
 
         # Initialize the first row of the memoization table
         for idx in char_indices[key[0]]:
-            memo[0][idx] = count_steps(0, idx)
+            memo[0][idx] = calculate_steps(starting_position, idx)
 
         # Spell the keyword using the metal dial
         for i in range(1, len(key)):
             for j in char_indices[key[i]]:
                 for k in char_indices[key[i - 1]]:
                     if k < len(memo[i - 1]) and j < len(memo[i]):
-                        memo[i][j] = min(memo[i][j], memo[i - 1][k] + count_steps(k, j))
+                        memo[i][j] = min(memo[i][j], memo[i - 1][k] + calculate_steps(k, j))
 
         # Return the minimum steps to spell the entire keyword
         return min(memo[-1]) + len(key)
