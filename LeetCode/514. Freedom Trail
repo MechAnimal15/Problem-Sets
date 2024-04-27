@@ -1,0 +1,60 @@
+514. Freedom Trail
+https://leetcode.com/problems/freedom-trail/submissions/1243368174?envType=daily-question&envId=2024-04-27
+
+
+To solve Problem 514, "Freedom Trail," we aim to determine the minimum number of steps required to spell a given keyword using a rotating ring mechanism. The ring consists of characters engraved on its outer edge, and the keyword must be spelled by aligning each character of the keyword at the "12:00" direction and then pressing a center button.
+
+Our Python solution utilizes dynamic programming to efficiently find the minimum steps required. Here's a detailed breakdown of our approach:
+
+  1. Dynamic Programming: We'll utilize dynamic programming to efficiently compute the minimum number of steps needed to spell each character of the keyword.
+  2. State Representation: We'll represent the state of the ring by the current character aligned at the "12:00" direction. The dynamic programming array will store the minimum steps required to align each character of the keyword with the current character on the ring.
+  3. Transition: For each character in the keyword, we'll iterate through the ring to find the minimum steps required to align the current character with the character on the ring. We'll consider both clockwise and anticlockwise rotations and choose the minimum of the two.
+  4.Base Case: The base case occurs when we've spelled all characters in the keyword. We return the minimum steps required to achieve this.
+  5. Python Solution: We'll implement the solution in Python3, providing detailed annotations to explain each step of the algorithm.
+
+Now, let's illustrate our approach with a Python solution:
+
+```python
+class Solution:
+    def findRotateSteps(self, ring: str, key: str) -> int:
+        # Define a dictionary to store the indices of each character in the ring
+        char_indices = {}
+        for i, char in enumerate(ring):
+            if char not in char_indices:
+                char_indices[char] = []
+            char_indices[char].append(i)
+        
+        # Initialize a dynamic programming array to store minimum steps to spell each character of the keyword
+        dp = [[float('inf')] * len(ring) for _ in range(len(key))]
+        
+        # Function to compute minimum steps required to align character 'a' with character 'b'
+        def min_steps(a, b):
+            return min(abs(a - b), len(ring) - abs(a - b))
+        
+        # Initialize the first row of the dynamic programming array
+        for idx in char_indices[key[0]]:
+            dp[0][idx] = min_steps(0, idx)
+        
+        # Iterate through each character in the keyword
+        for i in range(1, len(key)):
+            # Iterate through each possible position of the current character on the ring
+            for j in char_indices[key[i]]:
+                # Iterate through each possible position of the previous character on the ring
+                for k in char_indices[key[i - 1]]:
+                    # Update the minimum steps required for the current position
+                    dp[i][j] = min(dp[i][j], dp[i - 1][k] + min_steps(k, j))
+        
+        # Return the minimum steps required to spell the entire keyword
+        return min(dp[-1]) + len(key)
+
+# Test cases
+solution = Solution()
+print(solution.findRotateSteps("godding", "gd"))  # Output: 4
+print(solution.findRotateSteps("godding", "godding"))  # Output: 13
+
+```
+
+This Python solution employs dynamic programming to efficiently compute the minimum number of steps required to spell the given keyword. The findRotateSteps method iterates through each character of the keyword, considering all possible rotations of the ring to find the optimal alignment. The algorithm then returns the minimum steps required to spell the entire keyword.
+
+This solution provides a comprehensive and efficient approach to solving Problem 514, suitable for both technical and non-technical audiences. The Python code is accompanied by detailed annotations to aid understanding, and test cases demonstrate the correctness of the implementation.
+
