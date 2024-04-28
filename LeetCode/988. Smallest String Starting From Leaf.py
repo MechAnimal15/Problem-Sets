@@ -1,8 +1,6 @@
 # Problem 988: Smallest String Starting From Leaf
 # https://leetcode.com/problems/smallest-string-starting-from-leaf/submissions/1235926885
 
-# **Problem 988: Smallest String Starting From Leaf**
-# [Problem Link](https://leetcode.com/problems/smallest-string-starting-from-leaf/submissions/1235926885)
 
 # ### Overview:
 # Problem 988 poses the challenge of finding the lexicographically smallest string that starts at a leaf node and ends at the root of a binary tree. Each node in the tree contains a lowercase letter ('a' to 'z'). This problem requires a solution that efficiently traverses the binary tree while constructing and comparing strings along the paths from leaf to root.
