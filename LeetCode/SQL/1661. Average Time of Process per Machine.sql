@@ -1,17 +1,43 @@
--- **Problem 1661 - Average Time of Process per Machine**
---   https://leetcode.com/problems/average-time-of-process-per-machine/submissions/1244436430?envType=study-plan-v2&envId=top-sql-50
+/*
+Problem 1661 - Average Time of Process per Machine
+https://leetcode.com/problems/average-time-of-process-per-machine/submissions/1244441749?envType=study-plan-v2&envId=top-sql-50
+Related Topics: SQL
+Similar Questions: 1126. Active Businesses
+*/
 
+/*
+Problem Description:
+    There is a factory website that has several machines each running the same number of processes. Write a solution to find the average time each machine takes to complete a process.
+    The time to complete a process is the 'end' timestamp minus the 'start' timestamp. The average time is calculated by the total time to complete every process on the machine divided by the number of processes that were run.
+    The resulting table should have the machine_id along with the average time as processing_time, which should be rounded to 3 decimal places.
+    Return the result table in any order.
+*/
 
--- **Introduction:**
--- Problem 1661, "Average Time of Process per Machine," requires us to calculate the average time each machine takes to complete a process in a factory website. This portfolio entry presents a detailed overview of the problem, along with an MS SQL Server solution enriched with annotations, documentation, and best practices in technical writing.
+/*
+SQL Schema:
+    Create table If Not Exists Activity (machine_id int, process_id int, activity_type ENUM('start', 'end'), timestamp float);
+        Truncate table Activity;
+            insert into Activity (machine_id, process_id, activity_type, timestamp) values ('0', '0', 'start', '0.712');
+            insert into Activity (machine_id, process_id, activity_type, timestamp) values ('0', '0', 'end', '1.520');
+            insert into Activity (machine_id, process_id, activity_type, timestamp) values ('0', '1', 'start', '3.140');
+            insert into Activity (machine_id, process_id, activity_type, timestamp) values ('0', '1', 'end', '4.120');
+            insert into Activity (machine_id, process_id, activity_type, timestamp) values ('1', '0', 'start', '0.550');
+            insert into Activity (machine_id, process_id, activity_type, timestamp) values ('1', '0', 'end', '1.550');
+            insert into Activity (machine_id, process_id, activity_type, timestamp) values ('1', '1', 'start', '0.430');
+            insert into Activity (machine_id, process_id, activity_type, timestamp) values ('1', '1', 'end', '1.420');
+            insert into Activity (machine_id, process_id, activity_type, timestamp) values ('2', '0', 'start', '4.100');
+            insert into Activity (machine_id, process_id, activity_type, timestamp) values ('2', '0', 'end', '4.512');
+            insert into Activity (machine_id, process_id, activity_type, timestamp) values ('2', '1', 'start', '2.500');
+            insert into Activity (machine_id, process_id, activity_type, timestamp) values ('2', '1', 'end', '5.000');
+*/
 
+/*
+Approach:
+The problem can be solved by joining the 'start' and 'end' timestamps for each process using SQL join operations. We can calculate the processing time for each process by subtracting the 'start' timestamp from the 'end' timestamp. Then, we group the results by machine_id and calculate the average processing time for each machine. Finally, we round the average processing time to 3 decimal places.
 
--- **Technical Overview:**
---   **Algorithm Explanation:**
---     The provided MS SQL Server solution utilizes a SQL query to calculate the average processing time for each machine based on the activities recorded in the factory website. The algorithm involves grouping the data by machine_id and process_id, calculating the processing time for each process, and then finding the average processing time for each machine.
+SQL Solution:
+*/
 
--- **SQL Solution:**
--- ```sql
 SELECT 
     machine_id,
     ROUND(AVG(end_time - start_time), 3) AS processing_time
@@ -28,34 +54,54 @@ FROM
         process_id) AS subquery
 GROUP BY 
     machine_id;
--- ```
 
--- **Function and Variable Naming:**
---   - Descriptive variable names like machine_id, process_id, start_time, and end_time enhance code readability and clarity.
---   - The SQL query uses clear and concise table aliases such as subquery to improve code organization.
+/*
+Algorithm Explanation:
+1. We use a subquery to group the 'start' and 'end' timestamps for each process using the MAX function.
+2. Within the subquery, we calculate the 'start' and 'end' timestamps separately based on the activity_type.
+3. We then calculate the processing time for each process by subtracting the 'start' timestamp from the 'end' timestamp.
+4. After obtaining the processing times for all processes, we group the results by machine_id and calculate the average processing time for each machine.
+5. Finally, we round the average processing time to 3 decimal places using the ROUND function.
+*/
 
--- **Comments and Documentation:**
---   - Comments are provided to explain the purpose of the SQL query, subquery, and each section of code.
---   - The documentation describes the functionality of the query, its parameters, and the expected result.
+/*
+Optimization and Performance:
+    The SQL query optimizes performance by using efficient join operations and aggregations. However, further optimizations may be possible depending on the database engine and indexing strategies.
+    The use of subqueries and aggregation functions ensures that the processing is performed in a single pass through the data, reducing computational overhead.
+    Additionally, indexing the relevant columns in the Activity table can improve query performance, especially for large datasets.
+    Overall, the SQL solution provides an efficient and scalable approach to calculating the average processing time per machine.
+*/
 
--- **Code Structure and Organization:**
---   - The SQL query is logically structured, with clear separation of concerns and a consistent indentation style.
---   - Related sections of code, such as the subquery for calculating start_time and end_time, are grouped together for clarity.
+/*
+Usage Examples and Test Cases:
+    The provided SQL query can be executed on any SQL database supporting the SQL syntax used in the solution. It will produce the average processing time per machine based on the given Activity table.
 
--- **Error Handling and Edge Cases:**
---   - The solution assumes valid input data in the Activity table, as specified in the problem description.
---   - Error handling for invalid or unexpected data is not explicitly addressed in the provided SQL query.
+Example Input:
+    Activity table:
+        +------------+------------+---------------+-----------+
+        | machine_id | process_id | activity_type | timestamp |
+        +------------+------------+---------------+-----------+
+        | 0          | 0          | start         | 0.712     |
+        | 0          | 0          | end           | 1.520     |
+        | 0          | 1          | start         | 3.140     |
+        | 0          | 1          | end           | 4.120     |
+        | 1          | 0          | start         | 0.550     |
+        | 1          | 0          | end           | 1.550     |
+        | 1          | 1          | start         | 0.430     |
+        | 1          | 1          | end           | 1.420     |
+        | 2          | 0          | start         | 4.100     |
+        | 2          | 0          | end           | 4.512     |
+        | 2          | 1          | start         | 2.500     |
+        | 2          | 1          | end           | 5.000     |
+        +------------+------------+---------------+-----------+
 
--- **Optimization and Performance:**
---   - The solution efficiently calculates the average processing time using SQL aggregate functions and grouping operations.
---   - The use of MAX() function optimizes performance by selecting the maximum timestamp for each activity type.
-
--- **Usage Examples and Test Cases:**
---   - The SQL query can be executed against the Activity table to obtain the average processing time for each machine.
---   - Sample inputs and expected outputs are provided in the problem description to validate the correctness of the solution.
-
--- ---
-
--- **Conclusion:**
---   This portfolio entry provides a comprehensive overview of Problem 1661 - Average Time of Process per Machine, along with an MS SQL Server solution. By following best practices in technical writing and SQL query structure, the entry aims to enhance readability, understanding, and collaboration among stakeholders.
-
+    Expected Output:
+        +------------+-----------------+
+        | machine_id | processing_time |
+        +------------+-----------------+
+        | 0          | 0.894           |
+        | 1          | 0.995           |
+        | 2          | 1.456           |
+        +------------+-----------------+
+The SQL query should return the average processing time per machine rounded to 3 decimal places, as shown in the expected output.
+*/
