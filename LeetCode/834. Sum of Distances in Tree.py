@@ -3,15 +3,13 @@
 
 
 # **Problem Description:**
-#   There is an undirected connected tree with \( n \) nodes labeled from 0 to \( n - 1 \) and \( n - 1 \) edges.
-  
-#   You are given the integer \( n \) and the array \( edges \) where \( edges[i] = [a_i, b_i] \) indicates that there is an edge between nodes \( a_i \) and \( b_i \) in the tree.
-  
-#   Return an array \( answer \) of length \( n \) where \( answer[i] \) is the sum of the distances between the \( i \)th node in the tree and all other nodes.
+
+# There is an undirected connected tree with \( n \) nodes labeled from 0 to \( n - 1 \) and \( n - 1 \) edges. You are given the integer \( n \) and the array \( edges \) where \( edges[i] = [a_i, b_i] \) indicates that there is an edge between nodes \( a_i \) and \( b_i \) in the tree. Return an array \( answer \) of length \( n \) where \( answer[i] \) is the sum of the distances between the \( i \)th node in the tree and all other nodes.
 
 # ---
 
 # **Approach:**
+
 # - **Constructing the Adjacency List:**
 #     - We begin by constructing an adjacency list to represent the graph structure of the tree. This allows us to efficiently traverse the tree.
 
@@ -86,7 +84,7 @@ class Solution:
 # n = 6
 # edges = [[0,1],[0,2],[2,3],[2,4],[2,5]]
 # print(solution.sumOfDistancesInTree(n, edges))
-```
+# ```
 
 # ---
 
@@ -95,5 +93,4 @@ class Solution:
 # The solution effectively calculates the sum of distances from each node to all other nodes in an undirected connected tree using a combination of adjacency list representation and two DFS traversals. The algorithm has a time complexity of \( O(N) \) and a space complexity of \( O(N) \), making it efficient for trees with a large number of nodes.
 
 # This portfolio entry provides a comprehensive overview of Problem 834 - Sum of Distances in Tree, covering the problem description, approach, Python solution, and conclusion. The approach section explains the algorithm used, and the Python solution is annotated to enhance readability and understanding. Additionally, complexity analysis is provided to give insights into the efficiency of the solution. Overall, this portfolio entry offers a detailed explanation of the problem and its solution, catering to both technical and non-technical audiences.
-
 
